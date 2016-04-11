@@ -29,6 +29,7 @@ local.properties
 # Android Studio
 .idea
 .gradle
+.navigation
 /*/local.properties
 /*/out
 /*/*/build
