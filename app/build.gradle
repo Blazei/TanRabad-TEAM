@@ -40,10 +40,23 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        debug {
+            storeFile file("debug.keystore")
+        }
+        release {
+            storeFile file("release.keystore")
+            keyAlias "blayzupe"
+            keyPassword System.getenv("BLAYZUPE_KEY_PASSWORD")
+            storePassword System.getenv("BLAYZUPE_STORE_PASSWORD")
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
