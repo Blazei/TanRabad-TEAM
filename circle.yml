@@ -4,4 +4,4 @@ dependencies:
     - chmod +x gradlew
 test:
   override:
-    - ./gradlew build
+    - ./gradlew clean build -PdisablePreDex
