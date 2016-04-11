@@ -1,5 +1,6 @@
+dependencies:
+  override:
+   - chmod +x gradlew
 test:
-  pre:
-    - chmod +x gradlew
   override:
     - ./gradlew build
