@@ -1,6 +1,13 @@
 dependencies:
+  cache_directories:
+    - ~/.android
+    - ~/android
   override:
+    - echo y | android update sdk --no-ui --all --filter "tools,platform-tools,android-23,extra-google-google_play_services,extra-google-m2repository,extra-android-support,extra-android-m2repository"
+    - echo y | android update sdk --no-ui --all --filter "extra-google-google_play_services,extra-google-m2repository,extra-android-support,extra-android-m2repository"
+    - echo y | android update sdk --no-ui --all --filter "build-tools-23.0.3"
     - chmod +x gradlew
+    - ./gradlew dependencies
 test:
   override:
     - ./gradlew clean build -PdisablePreDex
