@@ -7,13 +7,32 @@
 package org.tanrabad.team;
 
 import android.app.Application;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.test.ApplicationTestCase;
+import android.test.MoreAsserts;
+import org.junit.Before;
+import org.junit.Test;
 
-/**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
- */
 public class ApplicationTest extends ApplicationTestCase<Application> {
+
+    private Application application;
+
     public ApplicationTest() {
         super(Application.class);
+    }
+
+    @Before
+    protected void setUp() throws Exception {
+        super.setUp();
+        createApplication();
+        application = getApplication();
+    }
+
+    @Test
+    public void testCorrectVersion() throws PackageManager.NameNotFoundException {
+        PackageInfo info = application.getPackageManager().getPackageInfo(application.getPackageName(), 0);
+        assertNotNull(info);
+        MoreAsserts.assertMatchesRegex("\\d\\.\\d", info.versionName);
     }
 }
