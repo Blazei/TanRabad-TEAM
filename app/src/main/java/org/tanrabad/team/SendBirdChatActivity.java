@@ -6,10 +6,8 @@
 
 package org.tanrabad.team;
 
-import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -18,16 +16,12 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.sendbird.android.MessageListQuery;
 import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdEventHandler;
 import com.sendbird.android.model.*;
-import org.tanrabad.team.task.UrlDownloadAsyncTask;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 
@@ -56,22 +50,10 @@ public class SendBirdChatActivity extends FragmentActivity {
         return args;
     }
 
-    protected static void displayUrlImage(ImageView imageView, String url) {
-        UrlDownloadAsyncTask.display(url, imageView);
-    }
-
-    protected static void downloadUrl(FileLink fileLink, Context context) throws IOException {
-        String url = fileLink.getFileInfo().getUrl();
-        String name = fileLink.getFileInfo().getName();
-        File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        File downloadFile = File.createTempFile("SendBird", name.substring(name.lastIndexOf(".")), downloadDir);
-        UrlDownloadAsyncTask.download(url, downloadFile, context);
-    }
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        resizeMenubar();
+        resizeMenuBar();
     }
 
     @Override
@@ -246,11 +228,11 @@ public class SendBirdChatActivity extends FragmentActivity {
             }
         });
 
-        resizeMenubar();
+        resizeMenuBar();
     }
 
 
-    private void resizeMenubar() {
+    private void resizeMenuBar() {
         ViewGroup.LayoutParams lp = mTopBarContainer.getLayoutParams();
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             lp.height = (int) (28 * getResources().getDisplayMetrics().density);

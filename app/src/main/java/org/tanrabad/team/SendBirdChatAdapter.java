@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Environment;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +24,10 @@ import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
 import com.sendbird.android.handler.DeleteMessageHandler;
 import com.sendbird.android.model.*;
+import org.tanrabad.team.task.UrlDownloadAsyncTask;
 import org.tanrabad.team.utils.FileUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +40,10 @@ public class SendBirdChatAdapter extends BaseAdapter {
     private static final int TYPE_SYSTEM_MESSAGE = 2;
     private static final int TYPE_FILELINK = 3;
     private static final int TYPE_BROADCAST_MESSAGE = 4;
-
-    private SendBirdChatActivity sendBirdChatActivity;
     private final Context mContext;
     private final LayoutInflater mInflater;
     private final List<Object> mItemList;
+    private SendBirdChatActivity sendBirdChatActivity;
     private long mMaxMessageTimestamp = Long.MIN_VALUE;
     private long mMinMessageTimestamp = Long.MAX_VALUE;
     private DeleteMessageHandler deleteMessageHandler;
@@ -255,7 +257,7 @@ public class SendBirdChatAdapter extends BaseAdapter {
                     viewHolder.getView("txt_image_name", TextView.class).setText(fileLink.getFileInfo().getName());
                     viewHolder.getView("txt_image_size", TextView.class)
                             .setText(FileUtils.readableFileSize(fileLink.getFileInfo().getSize()));
-                    SendBirdChatActivity.displayUrlImage(viewHolder.getView("img_thumbnail", ImageView.class),
+                    displayUrlImage(viewHolder.getView("img_thumbnail", ImageView.class),
                             fileLink.getFileInfo().getUrl());
                 } else {
                     viewHolder.getView("image_container").setVisibility(View.GONE);
@@ -301,7 +303,7 @@ public class SendBirdChatAdapter extends BaseAdapter {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         try {
-                                            SendBirdChatActivity.downloadUrl((FileLink) item, mContext);
+                                            downloadUrl((FileLink) item, mContext);
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
@@ -320,6 +322,18 @@ public class SendBirdChatAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    protected void downloadUrl(FileLink fileLink, Context context) throws IOException {
+        String url = fileLink.getFileInfo().getUrl();
+        String name = fileLink.getFileInfo().getName();
+        File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File downloadFile = File.createTempFile("SendBird", name.substring(name.lastIndexOf(".")), downloadDir);
+        UrlDownloadAsyncTask.download(url, downloadFile, context);
+    }
+
+    protected void displayUrlImage(ImageView imageView, String url) {
+        UrlDownloadAsyncTask.display(url, imageView);
     }
 
     public void delete(Object message) {
