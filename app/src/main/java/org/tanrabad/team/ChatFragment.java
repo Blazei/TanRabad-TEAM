@@ -30,12 +30,12 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-public class SendBirdChatFragment extends Fragment {
+public class ChatFragment extends Fragment {
     private static final int REQUEST_PICK_IMAGE = 100;
 
     protected ListView mListView;
     protected EditText mEtxtMessage;
-    private SendBirdChatAdapter mAdapter;
+    private ChatAdapter mAdapter;
     private Button mBtnSend;
     private ImageButton mBtnChannel;
     private ImageButton mBtnUpload;
@@ -43,13 +43,14 @@ public class SendBirdChatFragment extends Fragment {
     private SendBirdChatHandler mHandler;
     private MessageListQuery.MessageListQueryResult resultHandler;
 
-    public SendBirdChatFragment() {
+    public ChatFragment() {
     }
 
     public void setSendBirdChatHandler(SendBirdChatHandler handler) {
         mHandler = handler;
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
@@ -243,7 +244,7 @@ public class SendBirdChatFragment extends Fragment {
         }
     }
 
-    public void setSendBirdChatAdapter(SendBirdChatAdapter adapter) {
+    public void setSendBirdChatAdapter(ChatAdapter adapter) {
         mAdapter = adapter;
         if (mListView != null) {
             mListView.setAdapter(adapter);

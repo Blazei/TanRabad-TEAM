@@ -29,10 +29,17 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".SendBirdChatActivity"
+                android:name=".PublicChatActivity"
                 android:label="SendBird"
                 android:configChanges="orientation|screenSize"
-                android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+                android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            <intent-filter>
+                <action android:name="org.tanrabad.team.public"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
 
     </application>
 

@@ -46,8 +46,6 @@ public final class FileUtils {
     public static Map<String, Object> getFileInfo(final Context context, final Uri uri) {
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
-
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) { // DocumentProvider
             // ExternalStorageProvider
             return getFileInfoDocuments(context, uri);
@@ -173,7 +171,7 @@ public final class FileUtils {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
-    public static boolean isNewGooglePhotosUri(Uri uri) {
+    private static boolean isNewGooglePhotosUri(Uri uri) {
         return "com.google.android.apps.photos.contentprovider".equals(uri.getAuthority());
     }
 }

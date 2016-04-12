@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SendBirdChatAdapter extends BaseAdapter {
+public class ChatAdapter extends BaseAdapter {
     private static final int TYPE_UNSUPPORTED = 0;
     private static final int TYPE_MESSAGE = 1;
     private static final int TYPE_SYSTEM_MESSAGE = 2;
@@ -43,15 +43,15 @@ public class SendBirdChatAdapter extends BaseAdapter {
     private final Context mContext;
     private final LayoutInflater mInflater;
     private final List<Object> mItemList;
-    private SendBirdChatActivity sendBirdChatActivity;
+    private PublicChatActivity sendBirdChatActivity;
     private long mMaxMessageTimestamp = Long.MIN_VALUE;
     private long mMinMessageTimestamp = Long.MAX_VALUE;
     private DeleteMessageHandler deleteMessageHandler;
 
-    public SendBirdChatAdapter(SendBirdChatActivity sendBirdChatActivity, Context context) {
-        this.sendBirdChatActivity = sendBirdChatActivity;
-        mContext = context;
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public ChatAdapter(PublicChatActivity publicChatActivity) {
+        this.sendBirdChatActivity = publicChatActivity;
+        mContext = publicChatActivity;
+        mInflater = (LayoutInflater) publicChatActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mItemList = new ArrayList<>();
     }
 
@@ -200,8 +200,8 @@ public class SendBirdChatAdapter extends BaseAdapter {
 
                                             @Override
                                             public void onSuccess(long messageId) {
-                                                sendBirdChatActivity.mSendBirdChatAdapter.delete(item);
-                                                sendBirdChatActivity.mSendBirdChatAdapter.notifyDataSetChanged();
+                                                sendBirdChatActivity.mChatAdapter.delete(item);
+                                                sendBirdChatActivity.mChatAdapter.notifyDataSetChanged();
                                                 Toast.makeText(mContext, "Message has been deleted.",
                                                         Toast.LENGTH_SHORT).show();
                                             }
