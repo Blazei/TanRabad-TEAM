@@ -30,15 +30,12 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by piruin on 4/12/2016.
- */
 public class SendBirdChatFragment extends Fragment {
     private static final int REQUEST_PICK_IMAGE = 100;
 
     protected ListView mListView;
-    private SendBirdChatAdapter mAdapter;
     protected EditText mEtxtMessage;
+    private SendBirdChatAdapter mAdapter;
     private Button mBtnSend;
     private ImageButton mBtnChannel;
     private ImageButton mBtnUpload;
@@ -210,22 +207,23 @@ public class SendBirdChatFragment extends Fragment {
             if (path == null) {
                 Toast.makeText(getActivity(), "Uploading file must be located in local storage.",
                         Toast.LENGTH_LONG).show();
-            } else {
-                showUploadProgress(true);
-                SendBird.uploadFile(new File(path), mime, size, "", new SendBirdFileUploadEventHandler() {
-                    @Override
-                    public void onUpload(FileInfo fileInfo, Exception e) {
-                        showUploadProgress(false);
-                        if (e != null) {
-                            e.printStackTrace();
-                            Toast.makeText(getActivity(), "Fail to upload the file.", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-
-                        SendBird.sendFile(fileInfo);
-                    }
-                });
+                return;
             }
+            showUploadProgress(true);
+            SendBird.uploadFile(new File(path), mime, size, "", new SendBirdFileUploadEventHandler() {
+                @Override
+                public void onUpload(FileInfo fileInfo, Exception e) {
+                    showUploadProgress(false);
+                    if (e != null) {
+                        e.printStackTrace();
+                        Toast.makeText(getActivity(), "Fail to upload the file.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    SendBird.sendFile(fileInfo);
+                }
+            });
+
 
         } catch (Exception e) {
             e.printStackTrace();

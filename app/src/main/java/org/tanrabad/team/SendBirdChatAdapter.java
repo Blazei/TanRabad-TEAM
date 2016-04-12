@@ -261,8 +261,10 @@ public class SendBirdChatAdapter extends BaseAdapter {
                     viewHolder.getView("image_container").setVisibility(View.GONE);
 
                     viewHolder.getView("file_container").setVisibility(View.VISIBLE);
-                    viewHolder.getView("txt_file_name", TextView.class).setText(fileLink.getFileInfo().getName());
-                    viewHolder.getView("txt_file_size", TextView.class).setText("" + fileLink.getFileInfo().getSize());
+                    viewHolder.getView("txt_file_name", TextView.class)
+                            .setText(fileLink.getFileInfo().getName());
+                    viewHolder.getView("txt_file_size", TextView.class)
+                            .setText(String.valueOf(fileLink.getFileInfo().getSize()));
                 }
                 viewHolder.getView("txt_sender_name").setOnClickListener(new View.OnClickListener() {
                     @Override

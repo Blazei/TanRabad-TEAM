@@ -16,8 +16,8 @@ import org.tanrabad.team.utils.UuidUtils;
 public class MainActivity extends AppCompatActivity {
 
 
-    String userId = UuidUtils.generateDeviceUuid();
-    String userName = "User-" + userId.substring(0, 5);
+    private String userId = UuidUtils.generateDeviceUuid();
+    private String userName = "User-" + userId.substring(0, 5);
 
 
     @Override
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startChat(String channelUrl) {
-        Intent intent = new Intent(MainActivity.this, SendBirdChatActivity.class);
+        Intent intent = new Intent(this, SendBirdChatActivity.class);
         Bundle args = SendBirdChatActivity.makeSendBirdArgs(BuildConfig.SENDBIRD_APP_ID, userId, userName, channelUrl);
 
         intent.putExtras(args);

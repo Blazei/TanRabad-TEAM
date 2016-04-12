@@ -7,7 +7,6 @@
 package org.tanrabad.team;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Environment;
@@ -71,42 +70,6 @@ public class SendBirdChatActivity extends FragmentActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CHANNEL_LIST) {
-            if (resultCode == RESULT_OK && data != null) {
-                mChannelUrl = data.getStringExtra("channelUrl");
-
-
-                mSendBirdChatAdapter.clear();
-                mSendBirdChatAdapter.notifyDataSetChanged();
-
-                SendBird.queryMessageList(mChannelUrl)
-                        .prev(Long.MAX_VALUE, 50, new MessageListQuery.MessageListQueryResult() {
-                            @Override
-                            public void onResult(List<MessageModel> messageModels) {
-                                for (MessageModel model : messageModels) {
-                                    mSendBirdChatAdapter.addMessageModel(model);
-                                }
-
-
-                                mSendBirdChatAdapter.notifyDataSetChanged();
-                                mSendBirdChatFragment.mListView.setSelection(mSendBirdChatAdapter.getCount());
-                                SendBird.join(mChannelUrl);
-                                SendBird.connect(mSendBirdChatAdapter.getMaxMessageTimestamp());
-                            }
-
-                            @Override
-                            public void onError(Exception e) {
-
-                            }
-                        });
-            }
-        }
-    }
-
-    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         resizeMenubar();
@@ -167,8 +130,7 @@ public class SendBirdChatActivity extends FragmentActivity {
         String appKey = extras.getString("appKey");
         String uuid = extras.getString("uuid");
         String nickname = extras.getString("nickname");
-        String gcmRegToken = PreferenceManager.getDefaultSharedPreferences(SendBirdChatActivity.this)
-                .getString("SendBirdGCMToken", "");
+        String gcmRegToken = PreferenceManager.getDefaultSharedPreferences(this).getString("SendBirdGCMToken", "");
 
         mChannelUrl = extras.getString("channelUrl");
 
@@ -289,10 +251,6 @@ public class SendBirdChatActivity extends FragmentActivity {
         resizeMenubar();
     }
 
-    @Override
-    public void finish() {
-        super.finish();
-    }
 
     private void resizeMenubar() {
         ViewGroup.LayoutParams lp = mTopBarContainer.getLayoutParams();
