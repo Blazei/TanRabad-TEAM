@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startChat(String channelUrl) {
         Intent intent = new Intent(this, SendBirdChatActivity.class);
-        Bundle args = SendBirdChatActivity.makeSendBirdArgs(BuildConfig.SENDBIRD_APP_ID, userId, userName, channelUrl);
+        Bundle args = SendBirdChatActivity.makeSendBirdArgs(userId, userName, channelUrl);
 
         intent.putExtras(args);
 

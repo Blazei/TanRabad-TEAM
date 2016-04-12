@@ -48,9 +48,8 @@ public class SendBirdChatActivity extends FragmentActivity {
     private Button mBtnMembers;
 
 
-    public static Bundle makeSendBirdArgs(String appKey, String uuid, String nickname, String channelUrl) {
+    public static Bundle makeSendBirdArgs(String uuid, String nickname, String channelUrl) {
         Bundle args = new Bundle();
-        args.putString("appKey", appKey);
         args.putString("uuid", uuid);
         args.putString("nickname", nickname);
         args.putString("channelUrl", channelUrl);
@@ -127,14 +126,13 @@ public class SendBirdChatActivity extends FragmentActivity {
     }
 
     private void initSendBird(Bundle extras) {
-        String appKey = extras.getString("appKey");
         String uuid = extras.getString("uuid");
         String nickname = extras.getString("nickname");
         String gcmRegToken = PreferenceManager.getDefaultSharedPreferences(this).getString("SendBirdGCMToken", "");
 
         mChannelUrl = extras.getString("channelUrl");
 
-        SendBird.init(this, appKey);
+        SendBird.init(this, BuildConfig.SENDBIRD_APP_ID);
         SendBird.login(SendBird.LoginOption.build(uuid)
                 .setUserName(nickname)
                 .setAccessToken(BuildConfig.SENDBIRD_API_TOKEN)
