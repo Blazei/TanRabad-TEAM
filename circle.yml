@@ -14,6 +14,7 @@ dependencies:
 test:
   override:
     - ./gradlew clean build -PdisablePreDex
+  post:
     - cp -r app/build/outputs $CIRCLE_ARTIFACTS
     - cp -r app/build/outputs/lint $CIRCLE_TEST_REPORTS
     - cp -r app/build/outputs/checkstyle $CIRCLE_TEST_REPORTS
