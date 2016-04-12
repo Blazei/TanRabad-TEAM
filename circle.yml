@@ -10,6 +10,7 @@ dependencies:
     - ~/.gradle/wrapper/
     - ~/android
   override:
+    - chmod +x circle.sh
     - ./circle.sh
     - chmod +x gradlew
     - ./gradlew dependencies
