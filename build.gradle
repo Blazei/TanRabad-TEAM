@@ -4,6 +4,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+import java.text.SimpleDateFormat
+
 buildscript {
     repositories {
         jcenter()
@@ -20,5 +22,12 @@ allprojects {
 }
 
 ext {
+    versionMajor = 1
+    versionMinor = 0
+    versionPatch = 0
+    versionName = "$versionMajor.$versionMinor.$versionPatch";
+    versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
+    buildTime = new SimpleDateFormat("yyMMddHHmm").format(new Date())
+
     preDexLibs = !project.hasProperty('disablePreDex')
 }
