@@ -60,6 +60,8 @@ android {
     }
 
     lintOptions {
+        htmlOutput file("$buildDir/outputs/lint/lint.html")
+        xmlOutput file("$buildDir/outputs/lint/lint.xml")
         checkReleaseBuilds false
         warningsAsErrors true
         abortOnError true
