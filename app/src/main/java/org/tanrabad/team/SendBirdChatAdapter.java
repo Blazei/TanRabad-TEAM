@@ -88,10 +88,11 @@ public class SendBirdChatAdapter extends BaseAdapter {
             viewHolder.setViewType(getItemViewType(position));
 
             switch (getItemViewType(position)) {
-                case TYPE_UNSUPPORTED:
+                case TYPE_UNSUPPORTED: {
                     convertView = new View(mInflater.getContext());
                     convertView.setTag(viewHolder);
                     break;
+                }
                 case TYPE_MESSAGE: {
                     TextView tv;
 
@@ -102,12 +103,7 @@ public class SendBirdChatAdapter extends BaseAdapter {
                     convertView.setTag(viewHolder);
                     break;
                 }
-                case TYPE_SYSTEM_MESSAGE: {
-                    convertView = mInflater.inflate(R.layout.sendbird_view_system_message, parent, false);
-                    viewHolder.setView("message", convertView.findViewById(R.id.txt_message));
-                    convertView.setTag(viewHolder);
-                    break;
-                }
+                case TYPE_SYSTEM_MESSAGE:
                 case TYPE_BROADCAST_MESSAGE: {
                     convertView = mInflater.inflate(R.layout.sendbird_view_system_message, parent, false);
                     viewHolder.setView("message", convertView.findViewById(R.id.txt_message));
@@ -139,7 +135,6 @@ public class SendBirdChatAdapter extends BaseAdapter {
                 }
             }
         }
-
 
         viewHolder = (ViewHolder) convertView.getTag();
         switch (getItemViewType(position)) {
