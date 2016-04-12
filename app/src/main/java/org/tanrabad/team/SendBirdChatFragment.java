@@ -35,9 +35,9 @@ import java.util.Map;
 public class SendBirdChatFragment extends Fragment {
     private static final int REQUEST_PICK_IMAGE = 100;
 
-    private ListView mListView;
+    protected ListView mListView;
     private SendBirdChatAdapter mAdapter;
-    private EditText mEtxtMessage;
+    protected EditText mEtxtMessage;
     private Button mBtnSend;
     private ImageButton mBtnChannel;
     private ImageButton mBtnUpload;

@@ -314,9 +314,6 @@ public class SendBirdChatActivity extends FragmentActivity {
             String androidID = Settings.Secure.ANDROID_ID;
             String deviceUUID = serial + androidID;
 
-        /*
-         * SHA-1
-         */
             MessageDigest digest;
             byte[] result;
             try {
@@ -339,7 +336,6 @@ public class SendBirdChatActivity extends FragmentActivity {
             if (activity == null || activity.getCurrentFocus() == null) {
                 return;
             }
-
             InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
                 inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
