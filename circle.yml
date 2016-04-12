@@ -1,16 +1,16 @@
 machine:
   timezone:
     Asia/Bangkok
+  environment:
+    ANDROID_HOME: /home/ubuntu/android
 dependencies:
   cache_directories:
     - ~/.android
     - ~/.gradle/caches/
     - ~/.gradle/wrapper/
+    - ~/android
   override:
-    - echo y | android update sdk --no-ui --all --filter "tools,platform-tools"
-    - echo y | android update sdk --no-ui --all --filter "build-tools-23.0.3"
-    - echo y | android update sdk --no-ui --all --filter "extra-android-support,extra-android-m2repository"
-    - echo y | android update sdk --no-ui --all --filter "extra-google-google_play_services,extra-google-m2repository"
+    - ./circle.sh
     - chmod +x gradlew
     - ./gradlew dependencies
 test:
