@@ -23,6 +23,7 @@ import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
 import com.sendbird.android.handler.DeleteMessageHandler;
 import com.sendbird.android.model.*;
+import org.tanrabad.team.utils.FileUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -249,7 +250,7 @@ public class SendBirdChatAdapter extends BaseAdapter {
                     viewHolder.getView("image_container").setVisibility(View.VISIBLE);
                     viewHolder.getView("txt_image_name", TextView.class).setText(fileLink.getFileInfo().getName());
                     viewHolder.getView("txt_image_size", TextView.class)
-                            .setText(SendBirdChatActivity.Helper.readableFileSize(fileLink.getFileInfo().getSize()));
+                            .setText(FileUtils.readableFileSize(fileLink.getFileInfo().getSize()));
                     SendBirdChatActivity.displayUrlImage(viewHolder.getView("img_thumbnail", ImageView.class),
                             fileLink.getFileInfo().getUrl());
                 } else {

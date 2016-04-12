@@ -24,6 +24,7 @@ import com.sendbird.android.SendBirdFileUploadEventHandler;
 import com.sendbird.android.model.FileInfo;
 import com.sendbird.android.model.MessageModel;
 import org.tanrabad.team.utils.FileUtils;
+import org.tanrabad.team.utils.SoftKeyboard;
 
 import java.io.File;
 import java.util.List;
@@ -141,7 +142,7 @@ public class SendBirdChatFragment extends Fragment {
         mListView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                SendBirdChatActivity.Helper.hideKeyboard(getActivity());
+                SoftKeyboard.hide(getActivity());
                 return false;
             }
         });
@@ -195,7 +196,7 @@ public class SendBirdChatFragment extends Fragment {
         mEtxtMessage.setText("");
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            SendBirdChatActivity.Helper.hideKeyboard(getActivity());
+            SoftKeyboard.hide(getActivity());
         }
     }
 

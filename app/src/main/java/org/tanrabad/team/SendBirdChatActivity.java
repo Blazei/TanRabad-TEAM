@@ -6,21 +6,17 @@
 
 package org.tanrabad.team;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -33,8 +29,6 @@ import org.tanrabad.team.task.UrlDownloadAsyncTask;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.text.DecimalFormat;
 import java.util.List;
 
 
@@ -307,48 +301,4 @@ public class SendBirdChatActivity extends FragmentActivity {
         }
         mTopBarContainer.setLayoutParams(lp);
     }
-
-    public static class Helper {
-        public static String generateDeviceUUID(Context context) {
-            String serial = Build.SERIAL;
-            String androidID = Settings.Secure.ANDROID_ID;
-            String deviceUUID = serial + androidID;
-
-            MessageDigest digest;
-            byte[] result;
-            try {
-                digest = MessageDigest.getInstance("SHA-1");
-                result = digest.digest(deviceUUID.getBytes("UTF-8"));
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-
-            StringBuilder sb = new StringBuilder();
-            for (byte b : result) {
-                sb.append(String.format("%02X", b));
-            }
-
-            return sb.toString();
-        }
-
-        public static void hideKeyboard(Activity activity) {
-            if (activity == null || activity.getCurrentFocus() == null) {
-                return;
-            }
-            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            if (inputMethodManager != null) {
-                inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
-            }
-        }
-
-        public static String readableFileSize(long size) {
-            if (size <= 0) return "0KB";
-            final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
-            int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
-            return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
-        }
-
-    }
-
 }

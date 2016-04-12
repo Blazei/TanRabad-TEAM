@@ -11,11 +11,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import org.tanrabad.team.utils.UuidUtils;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    String userId = SendBirdChatActivity.Helper.generateDeviceUUID(MainActivity.this);
+    String userId = UuidUtils.generateDeviceUUID();
     String userName = "User-" + userId.substring(0, 5);
 
 
