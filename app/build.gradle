@@ -34,6 +34,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "BUILD_TIME", "\"$buildTime\""
+        buildConfigField "String", "SENDBIRD_APP_ID", "\"$sendbirdAppId\""
+        buildConfigField "String", "SENDBIRD_API_TOKEN", "\"$sendbirdApiToken\""
     }
 
     compileOptions {

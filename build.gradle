@@ -30,4 +30,10 @@ ext {
     buildTime = new SimpleDateFormat("yyMMddHHmm").format(new Date())
 
     preDexLibs = !project.hasProperty('disablePreDex')
+
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    sendbirdAppId = System.hasProperty("SENDBIRD_APP_ID") ? System.getenv('SENDBIRD_APP_ID') : properties.getProperty("sendbird.app-id")
+    sendbirdApiToken = System.hasProperty("SENDBIRD_API_TOKEN") ? System.getenv('SENDBIRD_API_TOKEN') : properties.getProperty("sendbird.api-token")
 }

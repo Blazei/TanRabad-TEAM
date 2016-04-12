@@ -6,18 +6,36 @@
 
 package org.tanrabad.team;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    String userId = SendBirdChatActivity.Helper.generateDeviceUUID(MainActivity.this);
+    String userName = "User-" + userId.substring(0, 5);
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        startChat("f8346.general");
     }
+
+    private void startChat(String channelUrl) {
+        Intent intent = new Intent(MainActivity.this, SendBirdChatActivity.class);
+        Bundle args = SendBirdChatActivity.makeSendBirdArgs(BuildConfig.SENDBIRD_APP_ID, userId, userName, channelUrl);
+
+        intent.putExtras(args);
+
+        startActivity(intent);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

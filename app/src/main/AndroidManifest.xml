@@ -28,6 +28,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+                android:name=".SendBirdChatActivity"
+                android:label="SendBird"
+                android:configChanges="orientation|screenSize"
+                android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+
     </application>
+
 
 </manifest>
