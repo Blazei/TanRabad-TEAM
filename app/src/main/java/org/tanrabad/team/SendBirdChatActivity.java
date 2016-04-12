@@ -33,7 +33,9 @@ import java.util.List;
 
 
 public class SendBirdChatActivity extends FragmentActivity {
+
     public static final int REQUEST_CHANNEL_LIST = 100;
+
     protected SendBirdChatAdapter mSendBirdChatAdapter;
     protected boolean mDoNotDisconnect;
     private SendBirdChatFragment mSendBirdChatFragment;
@@ -118,7 +120,7 @@ public class SendBirdChatActivity extends FragmentActivity {
 
         initFragment();
 
-        initUIComponents();
+        initUiComponents();
         initSendBird(getIntent().getExtras());
 
         SendBird.queryMessageList(mChannelUrl).prev(Long.MAX_VALUE, 50, new MessageListQuery.MessageListQueryResult() {
@@ -272,7 +274,7 @@ public class SendBirdChatActivity extends FragmentActivity {
         });
     }
 
-    private void initUIComponents() {
+    private void initUiComponents() {
         mTopBarContainer = findViewById(R.id.top_bar_container);
         mTxtChannelUrl = (TextView) findViewById(R.id.txt_channel_url);
 

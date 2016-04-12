@@ -16,7 +16,7 @@ import org.tanrabad.team.utils.UuidUtils;
 public class MainActivity extends AppCompatActivity {
 
 
-    String userId = UuidUtils.generateDeviceUUID();
+    String userId = UuidUtils.generateDeviceUuid();
     String userName = "User-" + userId.substring(0, 5);
 
 

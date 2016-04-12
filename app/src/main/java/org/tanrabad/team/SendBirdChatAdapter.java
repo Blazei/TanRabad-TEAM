@@ -27,7 +27,9 @@ import org.tanrabad.team.utils.FileUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SendBirdChatAdapter extends BaseAdapter {
     private static final int TYPE_UNSUPPORTED = 0;
@@ -39,15 +41,16 @@ public class SendBirdChatAdapter extends BaseAdapter {
     private SendBirdChatActivity sendBirdChatActivity;
     private final Context mContext;
     private final LayoutInflater mInflater;
-    private final ArrayList<Object> mItemList;
+    private final List<Object> mItemList;
     private long mMaxMessageTimestamp = Long.MIN_VALUE;
     private long mMinMessageTimestamp = Long.MAX_VALUE;
+    private DeleteMessageHandler deleteMessageHandler;
 
     public SendBirdChatAdapter(SendBirdChatActivity sendBirdChatActivity, Context context) {
         this.sendBirdChatActivity = sendBirdChatActivity;
         mContext = context;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mItemList = new ArrayList<Object>();
+        mItemList = new ArrayList<>();
     }
 
     public long getMaxMessageTimestamp() {
@@ -192,7 +195,7 @@ public class SendBirdChatAdapter extends BaseAdapter {
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        SendBird.deleteMessage(((Message) item).getMessageId(), new DeleteMessageHandler() {
+                                        deleteMessageHandler = new DeleteMessageHandler() {
                                             @Override
                                             public void onError(SendBirdException e) {
                                                 e.printStackTrace();
@@ -205,7 +208,8 @@ public class SendBirdChatAdapter extends BaseAdapter {
                                                 Toast.makeText(mContext, "Message has been deleted.",
                                                         Toast.LENGTH_SHORT).show();
                                             }
-                                        });
+                                        };
+                                        SendBird.deleteMessage(((Message) item).getMessageId(), deleteMessageHandler);
                                     }
                                 })
                                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -364,7 +368,7 @@ public class SendBirdChatAdapter extends BaseAdapter {
     }
 
     private class ViewHolder {
-        private Hashtable<String, View> holder = new Hashtable<String, View>();
+        private Map<String, View> holder = new ConcurrentHashMap<>();
         private int type;
 
         public int getViewType() {

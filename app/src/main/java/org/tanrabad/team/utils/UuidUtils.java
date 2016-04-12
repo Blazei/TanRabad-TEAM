@@ -8,26 +8,32 @@ package org.tanrabad.team.utils;
 
 import android.os.Build;
 import android.provider.Settings;
+import android.support.graphics.drawable.BuildConfig;
+import android.util.Log;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public final class UuidUtils {
+
+    private static final String TAG = "UuidUtils";
 
     private UuidUtils() {
     }
 
-    public static String generateDeviceUUID() {
+    public static String generateDeviceUuid() {
         String serial = Build.SERIAL;
-        String androidID = Settings.Secure.ANDROID_ID;
-        String deviceUUID = serial + androidID;
+        String androidId = Settings.Secure.ANDROID_ID;
+        String deviceUuid = serial + androidId;
 
         MessageDigest digest;
         byte[] result;
         try {
             digest = MessageDigest.getInstance("SHA-1");
-            result = digest.digest(deviceUUID.getBytes("UTF-8"));
-        } catch (Exception e) {
-            e.printStackTrace();
+            result = digest.digest(deviceUuid.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException exception) {
+            if (BuildConfig.DEBUG) Log.e(TAG, "generateDeviceUuid", exception);
             return null;
         }
 

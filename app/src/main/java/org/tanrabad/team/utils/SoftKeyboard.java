@@ -9,6 +9,8 @@ package org.tanrabad.team.utils;
 import android.app.Activity;
 import android.view.inputmethod.InputMethodManager;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 public final class SoftKeyboard {
 
     private SoftKeyboard() {
@@ -18,7 +20,7 @@ public final class SoftKeyboard {
         if (activity == null || activity.getCurrentFocus() == null) {
             return;
         }
-        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(INPUT_METHOD_SERVICE);
         if (inputMethodManager != null) {
             inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
         }
